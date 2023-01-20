@@ -1,6 +1,6 @@
 # January 24: Basics of R Programming
 
-Time to get serious about working with data in R. This week we introduce core skills like setting a directory, accessing the functionality of R packages, data input/output, and basic exploration of data. Operations we'll see a lot of: `mutate`, `group_by`, `summarize`, `count`, and the pipe (`%>%`).
+Time to get serious about working with data in R. This week we introduce core skills like setting a directory, accessing the functionality of R packages, data input/output, and basic exploration of data. Operations we'll see a lot of: `mutate`, `summarize`, `count`, and the pipe (`%>%`).
 
 ## Preparation
 - Review [R Survival Guide](https://austin-hart-pols.github.io/SurvivalGuide/), Chs 3 and 4
