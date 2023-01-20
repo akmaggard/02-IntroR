@@ -11,6 +11,7 @@ Time to get serious about working with data in R. This week we introduce core sk
   - `knitr`
 
 ## Class materials
+- My [programming cRash couRse](https://github.com/SIS-data-analysis/02-IntroR/blob/main/cRash-couRse.md)
 - Data coming soon
 
 ## Assessments
