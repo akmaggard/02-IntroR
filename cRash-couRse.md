@@ -15,10 +15,11 @@ common functions, object structures, and more. For those without the
 background, try to think about the operations below in terms of syntax
 and function rather than as a fixed set of routines to memorize.
 
-For everyone, note two things: - I use generic object and element names
-wherever possible. E.g., `summary(mydata$col.name)` references a generic
-object, `mydata`, and a generic column named `col.name`. - You need to
-load `tidyverse` before executing much of what’s here.
+For everyone, note two things: 
+- I use generic object and element names
+where possible. For example, `summary(mydata$col.name)` refers to a generic
+object, `mydata`, and a generic column name, `col.name`. 
+- You need to load `tidyverse` before executing much of what’s here.
 
 ## Objects
 
@@ -26,11 +27,11 @@ R is an Object Oriented Language (OOL), and objects hold primary
 importance in the way we write and execute code in R. If you want R to
 record some information (rather than just print it out in the console),
 you have to store it in a named object. If you want to call on or use
-stored information, you have to call the object by name. As a matter of
-style: keep names short, intuitive, and free of spaces.[^1]
+stored information, you have to call the object by name. Object names are case sensitive.
+As a matter of style: keep names short, intuitive, and free of spaces.[^1]
 
 Objects come in many flavors: vectors, matrices, data frames, lists, and
-more. Object names are case sensitive. We’ll typically work with data
+more. We’ll typically work with data
 frames (and a special kind of frame called a `tibble`), but there are
 moments where knowing the difference between a data frame and a vector
 is really important.
@@ -45,16 +46,12 @@ is really important.
   df2 = tibble(a,b) # requires tidyverse
 ```
 
-How to you call information stored inside an object? Know that R is very
+How do you call information stored inside an object? R is very
 rectangular in its thinking about objects: they’re `n` elements long
 and/or `k` elements wide. A `tibble` recording grades for fifteen
-students on four problem sets is a 15x4 rectangular object. A `list` of
-2 `tibbles` and a `vector` is a 3x1 list. If you know this, you can
+students on four problem sets is a 15x4 rectangular object (fifteen rows and four columns). A `list` of
+2 `tibbles` and one `vector` is a 3x1 list. If you know this, you can
 access information with reference to it’s location in the rectangle.
-
-Notice below the difference between extraction and subsetting. Pay
-special attention here to the type of object each creates relative to
-the type of object you start with.
 
 ``` r
 # Extract an item from list or frame
@@ -70,6 +67,10 @@ the type of object you start with.
     select(col1, col2, col3) %>%
     filter(criterion)
 ```
+
+Notice the difference above between extraction and subsetting. Pay
+special attention to the type of object each creates relative to
+the type of object you start with.
 
 ## Packages
 
@@ -114,13 +115,12 @@ session.
 ## Pipes
 
 Pipes are awesome and *totally* intuitive… once you understand them. The
-basic pipe, `%>%`, comes from the `magrittr` package and attaches
-automatically with `tidyverse`. Pipes push the output from one operation
+basic pipe, `%>%`, comes from the `magrittr` package in `tidyverse`. Pipes push the output from one operation
 forward as the input for another operation. It saves you from creating
 and tracking loads of intermediate objects. Compare:
 
 ``` r
-# with pipes
+# a single code chunk with pipes
   p1 =
     mydata %>% # start with my data
     filter(group == 'A') %>%
@@ -128,7 +128,7 @@ and tracking loads of intermediate objects. Compare:
     mutate(percent = 100*n/sum(n)) %>% # add a percent column
     qplot(x = var1, y = percent)
 
-# Without a pipe
+# Without piping
   d1 = filter(data = mydata, group == 'A')
   d2 = count(data = d1, var1)
   d3 = mutate(data = d2, percent = 100*n/sum(n))
@@ -136,21 +136,21 @@ and tracking loads of intermediate objects. Compare:
     rm(d1,d2,d3)
 ```
 
-Notice in comparing these sequences where the “piped” output fits in the
+In comparing these sequences, notice where the “piped” output fits in the
 next line of code. For example, `count(data = mydata, var1)` becomes
-`mydata %>% count(data = ..., var1)` where `mydata` flows directly into
-`...`. And you can simplify to `mydata %>% count(var1)`.
+`mydata %>% count(data = ..., var1)` where `mydata` flows directly into the tidy dots,
+`...`. And you can simplify further to `mydata %>% count(var1)`.
 
 Not everything plays nicely with this basic pipe, especially some common
 functions in the `base` R library. If you’re feeling spicy, you can use
-the exposition pipe `%$%` as a workaround.
+the exposition pipe `%$%` as a workaround. You'll have to attach `magrittr` to use this special pipe.
 
 ``` r
 # won't work:
   mydata %>%
     lm(var1 ~ var2)
 
-# Bring that exposition with you:
+# Take the frame with you and 'expose' the regression to it:
   library(magrittr)
   mydata %$%
     lm(var1 ~ var2)
@@ -158,7 +158,7 @@ the exposition pipe `%$%` as a workaround.
 
 ## Data I/O
 
-How do you get that data frame into R so that you can go to work? One of
+How do you get your data frame into R so that you can go to work? One of
 the best parts of R is it’s capacity to input all types of data. Simply
 identify the type of data you have (look at the extension!) and choose
 the right command. Don’t forget about outputting, or saving, the data
@@ -194,7 +194,7 @@ data. Get a quick summary of the variables.
 
 ### Character and factor variables
 
-What to do with these non-numeric variables? Start with a relative
+What to do with non-numeric variables? Start with a relative
 frequency table and bar chart.
 
 ``` r
