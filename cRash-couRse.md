@@ -15,10 +15,11 @@ familiar functions, object structures, and more. For those without the
 background, try to think about the operations below in terms of syntax
 and function rather than as a fixed set of routines to memorize.
 
-For everyone, note two things: - I use generic object and element names
+For everyone, note two things: 
+-   I use generic object and element names
 wherever possible. E.g., `summary(mydata$col.name)` references a generic
-object, `mydata`, and a generic column named `col.name`. - You need to
-load `tidyverse` before executing much of what’s here.
+object, `mydata`, and a generic column named `col.name`. 
+-   You need to load `tidyverse` before executing much of what’s here.
 
 ## Objects
 
