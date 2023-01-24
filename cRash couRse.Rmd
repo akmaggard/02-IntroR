@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 ```
 
 
-Dive into the basics of R programming for data analytics. For those with background in R, use this as an opportunity to get new perspective on common functions, object structures, and more. For those without the background, try to think about the operations below in terms of syntax and function rather than as a fixed set of routines to memorize.
+Dive into the basics of R programming for data analytics. For those with background in R, use this as an opportunity to get new perspective on familiar functions, object structures, and more. For those without the background, try to think about the operations below in terms of syntax and function rather than as a fixed set of routines to memorize.
 
 For everyone, note two things:
 - I use generic object and element names wherever possible. E.g., `summary(mydata$col.name)` references a generic object, `mydata`, and a generic column named `col.name`.
@@ -44,13 +44,15 @@ Notice below the difference between extraction and subsetting. Pay special atten
 
 ```{r obs2}
 # Extract an item from list or frame
-  object$item$subitem... 
+  object$item
+  list$item$subitem... # for heirarchical lists
   object[['item']]
   object %>% 
     pull(item)
   
 # Subset an element (maintains orig structure)
   object[row.num,col.num] #defaults to object[col.num]
+  object['col.name'] # use quotes to call by name
   object[1:30, 4:5] # select rows 1-30, variables 4-5
   object %>%
     select(col1, col2, col3) %>%
@@ -81,7 +83,7 @@ Where does your project live? Data analyses have life cycles that go well beyond
 
 ```{r dirs}
 # Check and set your project directory
-  getwd()
+  getwd() # where's my current directory?
   setwd("filepath/forward slashes")
   setwd("~/folder/subfolder") # to branch within
   
@@ -99,19 +101,21 @@ Pipes are awesome and *totally* intuitive... once you understand them. The basic
     filter(group == 'A') %>%
     count(var1) %>% # tabulate scores on var1
     mutate(percent = 100*n/sum(n)) %>% # add a percent column
-    qplot(x = var1, y = percent)
+    ggplot(aes(x = var1, y = percent)) +
+    geom_col()
 
 # Without a pipe
   d1 = filter(data = mydata, group == 'A')
   d2 = count(data = d1, var1)
   d3 = mutate(data = d2, percent = 100*n/sum(n))
-  p1 = qplot(data = d3, x = var1, y = percent)
+  p1 = ggplot(data = d3, aes(x = var1, y = percent)) + 
+    geom_col()
     rm(d1,d2,d3)
 ```
 
-Notice in comparing these sequences where the "piped" output fits in the next line of code. For example, `count(data = mydata, var1)` becomes `mydata %>% count(data = ..., var1)` where `mydata` flows directly into `...`. And you can simplify to `mydata %>% count(var1)`.
+Notice in comparing these sequences where the "piped" output fits in the next line of code. For example, `count(data = mydata, var1)` becomes `mydata %>% count(x = ., var1)` where `mydata` flows directly into `.`. And you can simplify to `mydata %>% count(var1)`.
 
-Not everything plays nicely with this basic pipe, especially some common functions in the `base` R library. If you're feeling spicy, you can use the exposition pipe `%$%` as a workaround.
+Not everything plays nicely with this basic pipe, especially some common functions in `base` R. If you're feeling spicy, you can use the exposition pipe `%$%` as a workaround.
 
 ```{r expo}
 # won't work:
@@ -173,7 +177,7 @@ What to do with these non-numeric variables? Start with a relative frequency tab
 # Graphing
   p1 = 
     mytab %>%
-    ggplot(mytab, aes(x = var.name or criterion, y = percent)) +
+    ggplot(mytab, aes(x = var.name, y = percent)) +
     geom_col()
   
 ```
@@ -199,6 +203,6 @@ Get those summary statistics and make another picture. Notice the flexibility of
 ```
 
 
-[^1]: Strictly speaking, you can assign any name to an object. However, if it has spaces or other special/illegal characters, you'll have to wrap it in backquotes every time you call it: `` `$hi++y Name` ``. 
-[^2]: Attaching is great for packages you want to use repeatedly (e.g., `tidyverse`). The `::` operator is excellent for something you may only use once (e.g., `haven::read_dta()`) `::` is necessary in the odd case where two packages have the same function and you need to use, say, `stats::lag()` and not `dplyr::lag()`.
+[^1]: Strictly speaking, you can assign any name to an object. However, if it has spaces or other special/illegal characters, you'll have to wrap it in backquotes, `` ` ``, every time you call it: `` `$hi++y Name` ``. 
+[^2]: Attaching is great for packages you want to use repeatedly (e.g., `tidyverse`). The `::` operator is excellent for something you may only use once (e.g., `haven::read_dta()`). `::` is necessary in the odd case where two packages have the same function and you need to use, say, `stats::lag()` and not `dplyr::lag()`.
 [^3]: One important caveat is that writing to `.csv` will lose any factor ordering and/or `haven` labeling that you created.
