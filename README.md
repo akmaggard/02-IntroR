@@ -12,7 +12,7 @@ Time to get serious about working with data in R. This week we introduce core sk
 
 ## Class materials
 - My [programming cRash couRse](https://github.com/SIS-data-analysis/02-IntroR/blob/main/cRash-couRse.md)
-- Data: [Baltimore Harbor trash wheel data](https://github.com/SIS-data-analysis/02-IntroR/blob/main/trash wheels.csv)
+- Data: [Baltimore Harbor trash wheel data](https://github.com/SIS-data-analysis/02-IntroR/blob/main/trash%20wheels.csv)
 
 ## Assessments
 - Problem Set 1 is due in hard copy on January 31. Find it in the [Assessments repository](https://github.com/SIS-data-analysis/Assessments)
